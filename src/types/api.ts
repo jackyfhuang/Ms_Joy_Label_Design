@@ -1,0 +1,6 @@
+// API-related type definitions
+export interface ApiResponse<T> {
+  data: T
+  success: boolean
+  message?: string
+}
