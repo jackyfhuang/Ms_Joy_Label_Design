@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Share2, Copy, Check, Instagram, MessageCircle } from 'lucide-react'
 import { TagDesign } from '@/types/designer'
 
@@ -11,10 +11,9 @@ interface ShareDesignProps {
 
 export function ShareDesign({ design, onClose }: ShareDesignProps) {
   const [copied, setCopied] = useState(false)
-  const [shareText, setShareText] = useState('')
 
-  const generateShareText = () => {
-    const text = `Check out my custom name tag design! 🎨✨
+  const shareText = useMemo(() => {
+    return `Check out my custom name tag design! 🎨✨
     
 Name: ${design.text}
 Style: ${design.fontFamily}
@@ -23,15 +22,11 @@ Icons: ${design.selectedIcon ? 'Yes' : 'No'}
 
 Created with @msjoy_labeldesign 💕
 #CustomNameTags #PersonalizedTags #KidsLabels`
-    
-    setShareText(text)
-    return text
-  }
+  }, [design.text, design.fontFamily, design.letterColors, design.textColor, design.selectedIcon])
 
   const copyToClipboard = async () => {
-    const text = generateShareText()
     try {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(shareText)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
@@ -40,16 +35,14 @@ Created with @msjoy_labeldesign 💕
   }
 
   const shareToInstagram = () => {
-    const text = generateShareText()
-    const encodedText = encodeURIComponent(text)
+    const encodedText = encodeURIComponent(shareText)
     const instagramUrl = `https://www.instagram.com/create/story/?text=${encodedText}`
     window.open(instagramUrl, '_blank')
     onClose()
   }
 
   const shareToWhatsApp = () => {
-    const text = generateShareText()
-    const encodedText = encodeURIComponent(text)
+    const encodedText = encodeURIComponent(shareText)
     const whatsappUrl = `https://wa.me/?text=${encodedText}`
     window.open(whatsappUrl, '_blank')
     onClose()
@@ -107,7 +100,7 @@ Created with @msjoy_labeldesign 💕
                 <h6 className="fw-semibold mb-3">Preview</h6>
                 <div className="bg-light rounded-rainbow p-3">
                   <p className="small text-muted mb-2">
-                    {generateShareText().split('\n').map((line, index) => (
+                    {shareText.split('\n').map((line, index) => (
                       <span key={index}>
                         {line}
                         <br />

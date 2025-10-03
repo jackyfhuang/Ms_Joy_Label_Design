@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { Stage, Layer, Rect, Text, Group, Circle } from 'react-konva'
+import { Stage, Layer, Rect, Text, Group, Circle, Line } from 'react-konva'
 import Konva from 'konva'
 import { TagDesign } from '@/types/designer'
 import { ICONS } from '@/data/icons'
@@ -33,6 +33,10 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
             x={letterX}
             y={(design.tagHeight - design.fontSize) / 2}
             fontStyle="bold"
+            shadowColor="#000000"
+            shadowBlur={2}
+            shadowOffset={{ x: 1, y: 1 }}
+            shadowOpacity={0.3}
           />
         )
       })
@@ -48,6 +52,10 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
             x={8}
             y={(design.tagHeight - 24) / 2}
             fontFamily="Arial"
+            shadowColor="#000000"
+            shadowBlur={2}
+            shadowOffset={{ x: 1, y: 1 }}
+            shadowOpacity={0.2}
           />
         )}
         
@@ -59,6 +67,10 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
             x={dynamicTagWidth - 24 - 8}
             y={(design.tagHeight - 24) / 2}
             fontFamily="Arial"
+            shadowColor="#000000"
+            shadowBlur={2}
+            shadowOffset={{ x: 1, y: 1 }}
+            shadowOpacity={0.2}
           />
         )}
         
@@ -77,6 +89,10 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
             x={10}
             y={(design.tagHeight - 24) / 2}
             fontFamily="Arial"
+            shadowColor="#000000"
+            shadowBlur={2}
+            shadowOffset={{ x: 1, y: 1 }}
+            shadowOpacity={0.2}
           />
         )}
         
@@ -101,45 +117,87 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
           </div>
         </div>
         
-        <div className="flex justify-center items-center min-h-[250px] bg-gray-50 rounded-lg border border-gray-200">
+        <div className="flex justify-center items-center min-h-[300px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg border border-gray-300 shadow-inner">
           <Stage
-            width={dynamicTagWidth + 100}
-            height={design.tagHeight + 40}
+            width={dynamicTagWidth + 120}
+            height={design.tagHeight + 80}
             ref={ref || stageRef}
           >
             <Layer>
-              <Group x={50} y={20}>
-                {/* Metal Ring - Behind the tag */}
-                <Group x={-15} y={design.tagHeight / 2}>
+              <Group x={60} y={40}>
+                {/* Metal Ring - Professional realistic look with proper hole */}
+                <Group x={0} y={design.tagHeight / 2}>
+                  {/* Outer metal ring shadow */}
                   <Circle
-                    radius={30}
-                    fill={design.metalRingColor}
-                    stroke="#333"
+                    radius={36}
+                    fill="transparent"
+                    stroke="#1a1a1a"
                     strokeWidth={1}
-                    shadowColor="black"
-                    shadowBlur={3}
-                    shadowOffset={{ x: 1, y: 1 }}
+                    shadowColor="#000000"
+                    shadowBlur={8}
+                    shadowOffset={{ x: 3, y: 3 }}
+                    shadowOpacity={0.4}
+                  />
+                  
+                  {/* Create ring using stroke instead of fill */}
+                  <Circle
+                    radius={32}
+                    fill="transparent"
+                    stroke={design.metalRingColor}
+                    strokeWidth={12}
+                    shadowColor="#ffffff"
+                    shadowBlur={2}
+                    shadowOffset={{ x: -1, y: -1 }}
                     shadowOpacity={0.3}
                   />
+                  
+                  {/* Inner metal highlight */}
                   <Circle
-                    radius={20}
-                    fill={design.backgroundColor}
-                    stroke="none"
+                    radius={31}
+                    fill="transparent"
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                    opacity={0.4}
+                  />
+                  
+                  {/* Hole shadow/depth - this creates the visual depth of the hole */}
+                  <Circle
+                    radius={25}
+                    fill="transparent"
+                    stroke="#2a2a2a"
+                    strokeWidth={1}
+                    shadowColor="#000000"
+                    shadowBlur={3}
+                    shadowOffset={{ x: 1, y: 1 }}
+                    shadowOpacity={0.6}
                   />
                 </Group>
                 
-                {/* Tag Background */}
+                {/* Tag Background with realistic shadow and depth */}
                 <Rect
                   width={dynamicTagWidth}
                   height={design.tagHeight}
                   fill={design.backgroundColor}
-                  stroke="#ddd"
-                  strokeWidth={2}
+                  stroke="#cccccc"
+                  strokeWidth={1}
+                  cornerRadius={12}
+                  shadowColor="#000000"
+                  shadowBlur={15}
+                  shadowOffset={{ x: 6, y: 6 }}
+                  shadowOpacity={0.25}
+                />
+                
+                {/* Inner tag highlight for depth */}
+                <Rect
+                  width={dynamicTagWidth - 4}
+                  height={design.tagHeight - 4}
+                  x={2}
+                  y={2}
+                  fill="transparent"
+                  stroke="#ffffff"
+                  strokeWidth={1}
                   cornerRadius={10}
-                  shadowColor="black"
-                  shadowBlur={10}
-                  shadowOffset={{ x: 5, y: 5 }}
-                  shadowOpacity={0.2}
+                  opacity={0.3}
                 />
                 
                 {/* Icons and Text Layout */}

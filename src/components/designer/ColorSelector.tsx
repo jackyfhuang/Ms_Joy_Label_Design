@@ -1,4 +1,4 @@
-import { THREAD_COLORS } from '@/data/colors'
+import { THREAD_COLORS, METAL_RING_COLORS } from '@/data/colors'
 import { Button } from '@/components/ui/Button'
 import { TagDesign } from '@/types/designer'
 import { generateRainbowColors } from '@/lib/utils'
@@ -158,6 +158,40 @@ export const ColorSelector = ({
                 <div className="w-4 h-4 bg-black rounded"></div>
                 <span className="text-sm">Black</span>
               </Button>
+            </div>
+          </div>
+
+          {/* Metal Ring Color */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Metal Ring Color</label>
+            <div className="grid grid-cols-4 gap-2">
+              {METAL_RING_COLORS.map((color) => (
+                <Button
+                  key={color.id}
+                  variant="outline"
+                  onClick={() => onUpdateDesign({ metalRingColor: color.hex })}
+                  className={`rounded-lg border-2 transition ${
+                    design.metalRingColor === color.hex
+                      ? 'border-black scale-105'
+                      : 'border-gray-300 hover:border-gray-400 hover:scale-105'
+                  }`}
+                  style={{ backgroundColor: color.hex }}
+                  title={color.name}
+                >
+                  <div className="flex flex-col items-center space-y-1">
+                    <div className="w-6 h-6 rounded-full border border-gray-400 shadow-sm" style={{ backgroundColor: color.hex }}></div>
+                    <span 
+                      className="text-xs font-medium text-gray-800"
+                      style={{ 
+                        textShadow: '0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.6), 0 0 12px rgba(255, 255, 255, 0.4)',
+                        filter: 'contrast(1.2) brightness(1.1)'
+                      }}
+                    >
+                      {color.name}
+                    </span>
+                  </div>
+                </Button>
+              ))}
             </div>
           </div>
 

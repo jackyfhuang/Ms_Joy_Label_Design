@@ -73,7 +73,20 @@ export const useDesigner = () => {
     }
     
     saveTimeoutRef.current = setTimeout(() => {
-      autoSave()
+      if (!design.text.trim()) return
+      
+      setIsSaving(true)
+      try {
+        localStorage.setItem('msjoy-design-autosave', JSON.stringify({
+          design,
+          timestamp: new Date().toISOString()
+        }))
+        setLastSaved(new Date())
+      } catch (error) {
+        console.error('Auto-save failed:', error)
+      } finally {
+        setIsSaving(false)
+      }
     }, 2000) // Auto-save after 2 seconds of inactivity
 
     return () => {
@@ -81,7 +94,7 @@ export const useDesigner = () => {
         clearTimeout(saveTimeoutRef.current)
       }
     }
-  }, [design, autoSave])
+  }, [design])
 
   const updateDesign = useCallback((updates: Partial<TagDesign>) => {
     setDesign(prev => {

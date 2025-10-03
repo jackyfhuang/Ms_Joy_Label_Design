@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { ArrowLeft, Download, ShoppingCart, Save, Clock, Share2 } from 'lucide-react'
 import Konva from 'konva'
 import { useCartStore } from '@/stores/cart'
@@ -207,10 +207,12 @@ export const TagDesigner = ({ onBack }: TagDesignerProps) => {
       </div>
       
       <Cart />
-      <ShareDesign 
-        design={design} 
-        onClose={() => setShowShareModal(false)} 
-      />
+      {showShareModal && (
+        <ShareDesign 
+          design={design} 
+          onClose={() => setShowShareModal(false)} 
+        />
+      )}
     </div>
   )
 }
