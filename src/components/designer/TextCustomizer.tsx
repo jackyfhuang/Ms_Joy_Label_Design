@@ -32,7 +32,7 @@ export const TextCustomizer = ({
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center gap-3 gap-sm-4">
             <div className="rounded-rainbow d-flex align-items-center justify-content-center fs-2" style={{width: '3rem', height: '3rem', background: 'var(--soft-rainbow)'}}>
-              ✏️
+              <span className="fw-bold text-white">T</span>
             </div>
             <div>
               <h3 className="h5 h4-sm fw-semibold text-dark mb-1">Child's Name</h3>
@@ -59,14 +59,14 @@ export const TextCustomizer = ({
                 type="text"
                 value={design.text}
                 onChange={(e) => onUpdateText(e.target.value)}
-                placeholder="Enter name..."
+                placeholder="Enter name here..."
                 maxLength={currentProduct.maxTextLength}
                 className="form-control form-control-rainbow"
               />
               <div className="small text-muted mt-2 d-flex justify-content-between">
                 <span>{design.text.length}/{currentProduct.maxTextLength} characters</span>
                 {design.text.length > 0 && (
-                  <span className="text-primary fw-medium">✓ Name added!</span>
+                  <span className="text-primary fw-medium">Name added!</span>
                 )}
               </div>
             </div>

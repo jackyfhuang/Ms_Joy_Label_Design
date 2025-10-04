@@ -29,7 +29,7 @@ export const ProductSelector = ({
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center gap-3 gap-sm-4">
             <div className="rounded-rainbow d-flex align-items-center justify-content-center fs-2" style={{width: '3rem', height: '3rem', background: 'var(--soft-rainbow)'}}>
-              🏷️
+              <span className="fw-bold text-white">T</span>
             </div>
             <div>
               <h3 className="h5 h4-sm fw-semibold text-dark mb-1">Tag Style</h3>

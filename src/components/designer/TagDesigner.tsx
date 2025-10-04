@@ -18,7 +18,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { ShareDesign } from '@/components/ui/ShareDesign'
 
 export const TagDesigner = ({ onBack }: TagDesignerProps) => {
-  const stageRef = useRef<Konva.Stage>(null)
+  const stageRef = useRef<Konva.Stage | null>(null)
   const { addItem, toggleCart, getTotalItems } = useCartStore()
   const [showShareModal, setShowShareModal] = useState(false)
   
@@ -72,87 +72,15 @@ export const TagDesigner = ({ onBack }: TagDesignerProps) => {
 
   return (
     <div className="min-h-screen bg-soft-rainbow">
-      {/* Header */}
-      <div className="border-bottom border-light" style={{background: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(20px)'}}>
-        <div className="container py-4">
-          <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
-            <button
-              onClick={onBack}
-              className="btn btn-link d-flex align-items-center gap-3 text-muted text-decoration-none p-3 rounded-rainbow"
-              style={{backgroundColor: 'rgba(255, 255, 255, 0.6)'}}
-            >
-              <ArrowLeft size={20} />
-              <span className="fw-medium">Back to Home</span>
-            </button>
-            
-            <div className="d-flex flex-wrap align-items-center gap-3">
-              {/* Auto-save status */}
-              <div className="d-flex align-items-center gap-2 text-muted small">
-                {isSaving ? (
-                  <>
-                    <LoadingSpinner size="sm" />
-                    <span>Saving...</span>
-                  </>
-                ) : lastSaved ? (
-                  <>
-                    <Clock size={14} />
-                    <span>Saved {lastSaved.toLocaleTimeString()}</span>
-                  </>
-                ) : null}
-              </div>
-              
-              <button
-                onClick={resetDesign}
-                className="btn btn-outline-secondary px-4 py-2 rounded-rainbow fw-medium"
-                title="Start over with a new design"
-              >
-                Reset
-              </button>
-              <button
-                onClick={downloadDesign}
-                className="btn btn-outline-secondary d-flex align-items-center gap-2 px-4 py-2 rounded-rainbow fw-medium"
-                title="Save your design as an image"
-              >
-                <Download size={16} />
-                <span>Save Design</span>
-              </button>
-              <button
-                onClick={() => setShowShareModal(true)}
-                className="btn btn-outline-info d-flex align-items-center gap-2 px-4 py-2 rounded-rainbow fw-medium"
-                title="Share your design on social media"
-              >
-                <Share2 size={16} />
-                <span>Share</span>
-              </button>
-              <button
-                onClick={addToCart}
-                className="btn btn-rainbow d-flex align-items-center gap-2 px-6 py-2 rounded-rainbow fw-medium pulse"
-                title="Add this design to your cart"
-              >
-                <ShoppingCart size={16} />
-                <span>Add to Cart</span>
-              </button>
-              {getTotalItems() > 0 && (
-                <button
-                  onClick={toggleCart}
-                  className="btn btn-outline-secondary d-flex align-items-center gap-2 px-4 py-2 rounded-rainbow fw-medium"
-                >
-                  <ShoppingCart size={16} />
-                  <span>Cart ({getTotalItems()})</span>
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div className="container py-5">
-        <DesignProgress design={design} />
+        <DesignProgress design={design} onBack={onBack} />
 
         <div className="row g-4 g-lg-5">
           {/* Left Column - Controls */}
           <div className="col-lg-6 order-2 order-lg-1">
             <div className="d-flex flex-column gap-4">
+              {/* 1. Pick your tag size */}
               <ProductSelector
                 design={design}
                 currentProduct={currentProduct}
@@ -161,6 +89,21 @@ export const TagDesigner = ({ onBack }: TagDesignerProps) => {
                 onUpdateDesign={updateDesign}
               />
 
+              {/* 2. Tag color */}
+              <ColorSelector
+                design={design}
+                currentProduct={currentProduct}
+                isOpen={openSections.has('tagColors')}
+                onToggle={() => toggleSection('tagColors')}
+                onUpdateDesign={updateDesign}
+                selectedLetterIndex={selectedLetterIndex}
+                showSameColorPicker={showSameColorPicker}
+                onSetSelectedLetterIndex={setSelectedLetterIndex}
+                onSetShowSameColorPicker={setShowSameColorPicker}
+                colorType="tag"
+              />
+
+              {/* 3. Name on tag */}
               <TextCustomizer
                 design={design}
                 currentProduct={currentProduct}
@@ -170,6 +113,21 @@ export const TagDesigner = ({ onBack }: TagDesignerProps) => {
                 onUpdateText={updateText}
               />
 
+              {/* 4. Coloring on name or individual letters */}
+              <ColorSelector
+                design={design}
+                currentProduct={currentProduct}
+                isOpen={openSections.has('textColors')}
+                onToggle={() => toggleSection('textColors')}
+                onUpdateDesign={updateDesign}
+                selectedLetterIndex={selectedLetterIndex}
+                showSameColorPicker={showSameColorPicker}
+                onSetSelectedLetterIndex={setSelectedLetterIndex}
+                onSetShowSameColorPicker={setShowSameColorPicker}
+                colorType="text"
+              />
+
+              {/* 5. Pick the icons */}
               <IconSelector
                 design={design}
                 currentProduct={currentProduct}
@@ -178,29 +136,87 @@ export const TagDesigner = ({ onBack }: TagDesignerProps) => {
                 onUpdateDesign={updateDesign}
               />
 
+              {/* 6. Finally pick the color of the ring */}
               <ColorSelector
                 design={design}
                 currentProduct={currentProduct}
-                isOpen={openSections.has('colors')}
-                onToggle={() => toggleSection('colors')}
+                isOpen={openSections.has('ringColors')}
+                onToggle={() => toggleSection('ringColors')}
                 onUpdateDesign={updateDesign}
                 selectedLetterIndex={selectedLetterIndex}
                 showSameColorPicker={showSameColorPicker}
                 onSetSelectedLetterIndex={setSelectedLetterIndex}
                 onSetShowSameColorPicker={setShowSameColorPicker}
+                colorType="ring"
               />
             </div>
           </div>
 
           {/* Right Column - Preview */}
-          <div className="col-lg-6 order-1 order-lg-2">
-            <div className="position-sticky" style={{top: '2rem'}}>
-              <TagPreview
-                design={design}
-                currentProduct={currentProduct}
-                dynamicTagWidth={dynamicTagWidth}
-                stageRef={stageRef}
-              />
+          <div className="col-lg-6 order-1 order-lg-2 position-sticky" style={{top: '1rem', height: 'fit-content', zIndex: 100}}>
+            <TagPreview
+              design={design}
+              currentProduct={currentProduct}
+              dynamicTagWidth={dynamicTagWidth}
+              stageRef={stageRef}
+              onReset={resetDesign}
+            />
+          </div>
+        </div>
+      </div>
+      
+      {/* Action Buttons Section */}
+      <div className="container py-4">
+        <div className="row justify-content-center">
+          <div className="col-lg-8">
+            <div className="card card-rainbow">
+              <div className="card-body">
+                <div className="row g-3">
+                  <div className="col-md-4">
+                    <button
+                      onClick={downloadDesign}
+                      className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2 py-3 rounded-rainbow fw-medium"
+                      title="Save your design as an image"
+                    >
+                      <Download size={18} />
+                      <span>Save Design</span>
+                    </button>
+                  </div>
+                  <div className="col-md-4">
+                    <button
+                      onClick={() => setShowShareModal(true)}
+                      className="btn btn-outline-info w-100 d-flex align-items-center justify-content-center gap-2 py-3 rounded-rainbow fw-medium"
+                      title="Share your design on social media"
+                    >
+                      <Share2 size={18} />
+                      <span>Share</span>
+                    </button>
+                  </div>
+                  <div className="col-md-4">
+                    <button
+                      onClick={addToCart}
+                      className="btn btn-rainbow w-100 d-flex align-items-center justify-content-center gap-2 py-3 rounded-rainbow fw-medium pulse"
+                      title="Add this design to your cart"
+                    >
+                      <ShoppingCart size={18} />
+                      <span>Add to Cart</span>
+                    </button>
+                  </div>
+                </div>
+                {getTotalItems() > 0 && (
+                  <div className="row mt-3">
+                    <div className="col-12">
+                      <button
+                        onClick={toggleCart}
+                        className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2 py-2 rounded-rainbow fw-medium"
+                      >
+                        <ShoppingCart size={16} />
+                        <span>View Cart ({getTotalItems()})</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

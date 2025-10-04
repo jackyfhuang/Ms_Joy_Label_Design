@@ -112,7 +112,7 @@ export const IconSelector = ({
               </div>
               
               <div className="text-xs text-gray-600 bg-white p-2 rounded border">
-                💡 <strong>Tip:</strong> Choose different icons for left and right sides to make your tag unique!
+                <strong>Tip:</strong> Choose different icons for left and right sides to make your tag unique!
               </div>
             </div>
           )}
@@ -128,7 +128,7 @@ export const IconSelector = ({
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-lg">🚫</span>
+              <span className="text-lg fw-bold">—</span>
               <span className="text-xs">None</span>
             </Button>
 

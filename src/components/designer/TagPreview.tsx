@@ -8,11 +8,12 @@ interface TagPreviewProps {
   design: TagDesign
   currentProduct: any
   dynamicTagWidth: number
-  stageRef: React.RefObject<Konva.Stage>
+  stageRef: React.RefObject<Konva.Stage | null>
+  onReset?: () => void
 }
 
 export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
-  ({ design, currentProduct, dynamicTagWidth, stageRef }, ref) => {
+  ({ design, currentProduct, dynamicTagWidth, stageRef, onReset }, ref) => {
     const selectedIcon = design.selectedIcon ? ICONS.find(icon => icon.id === design.selectedIcon) : null
     const selectedIcon2 = design.selectedIcon2 ? ICONS.find(icon => icon.id === design.selectedIcon2) : null
 
@@ -109,22 +110,32 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
     )
 
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Preview</h3>
-          <div className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
-            {currentProduct.name}
+      <div className="card card-rainbow shadow-lg">
+        <div className="card-header bg-rainbow-gradient text-white border-0">
+          <div className="d-flex justify-content-between align-items-center">
+            <h3 className="h5 mb-0 fw-bold">Live Preview</h3>
+            {onReset && (
+              <button
+                onClick={onReset}
+                className="btn btn-outline-light btn-sm px-3 py-1 rounded-rainbow fw-medium"
+                title="Start over with a new design"
+              >
+                Reset
+              </button>
+            )}
           </div>
         </div>
         
-        <div className="flex justify-center items-center min-h-[300px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg border border-gray-300 shadow-inner">
+        <div className="card-body p-3">
+          <div className="d-flex justify-content-center align-items-center rounded-rainbow shadow-inner position-relative overflow-hidden" 
+               style={{minHeight: '120px', background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
           <Stage
-            width={dynamicTagWidth + 120}
-            height={design.tagHeight + 80}
+            width={dynamicTagWidth + 80}
+            height={design.tagHeight + 60}
             ref={ref || stageRef}
           >
             <Layer>
-              <Group x={60} y={40}>
+              <Group x={40} y={30}>
                 {/* Metal Ring - Professional realistic look with proper hole */}
                 <Group x={0} y={design.tagHeight / 2}>
                   {/* Outer metal ring shadow */}
@@ -173,7 +184,7 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
                   />
                 </Group>
                 
-                {/* Tag Background with realistic shadow and depth */}
+                {/* Tag Background with fabric texture */}
                 <Rect
                   width={dynamicTagWidth}
                   height={design.tagHeight}
@@ -187,17 +198,105 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
                   shadowOpacity={0.25}
                 />
                 
-                {/* Inner tag highlight for depth */}
+                {/* Primary fabric weave - horizontal threads */}
+                {Array.from({ length: Math.floor(design.tagHeight / 3) }).map((_, i) => (
+                  <Line
+                    key={`h-main-${i}`}
+                    points={[0, i * 3 + 1.5, dynamicTagWidth, i * 3 + 1.5]}
+                    stroke={design.backgroundColor === '#FFFFFF' ? '#b8b8b8' : 'rgba(255,255,255,0.4)'}
+                    strokeWidth={0.8}
+                    opacity={0.9}
+                  />
+                ))}
+                
+                {/* Secondary fabric weave - vertical threads */}
+                {Array.from({ length: Math.floor(dynamicTagWidth / 4) }).map((_, i) => (
+                  <Line
+                    key={`v-main-${i}`}
+                    points={[i * 4 + 2, 0, i * 4 + 2, design.tagHeight]}
+                    stroke={design.backgroundColor === '#FFFFFF' ? '#b8b8b8' : 'rgba(255,255,255,0.4)'}
+                    strokeWidth={0.6}
+                    dash={[2, 1]}
+                    opacity={0.7}
+                  />
+                ))}
+                
+                {/* Fine fabric grain - micro texture */}
+                {Array.from({ length: Math.floor(design.tagHeight / 1.5) }).map((_, i) => (
+                  <Line
+                    key={`grain-h-${i}`}
+                    points={[0, i * 1.5 + 0.5, dynamicTagWidth, i * 1.5 + 0.5]}
+                    stroke={design.backgroundColor === '#FFFFFF' ? '#e0e0e0' : 'rgba(255,255,255,0.2)'}
+                    strokeWidth={0.2}
+                    opacity={0.5}
+                  />
+                ))}
+                
+                {Array.from({ length: Math.floor(dynamicTagWidth / 2) }).map((_, i) => (
+                  <Line
+                    key={`grain-v-${i}`}
+                    points={[i * 2 + 1, 0, i * 2 + 1, design.tagHeight]}
+                    stroke={design.backgroundColor === '#FFFFFF' ? '#e0e0e0' : 'rgba(255,255,255,0.2)'}
+                    strokeWidth={0.2}
+                    dash={[1, 3]}
+                    opacity={0.4}
+                  />
+                ))}
+                
+                {/* Fabric nap direction - subtle directional texture */}
                 <Rect
-                  width={dynamicTagWidth - 4}
-                  height={design.tagHeight - 4}
-                  x={2}
-                  y={2}
+                  width={dynamicTagWidth}
+                  height={design.tagHeight}
+                  fill={design.backgroundColor === '#FFFFFF' ? 'rgba(180,180,180,0.08)' : 'rgba(255,255,255,0.06)'}
+                  stroke="none"
+                  cornerRadius={12}
+                />
+                
+                {/* Fabric surface variation - realistic material properties */}
+                <Rect
+                  width={dynamicTagWidth}
+                  height={design.tagHeight}
+                  fill={design.backgroundColor === '#FFFFFF' ? 'rgba(220,220,220,0.12)' : 'rgba(255,255,255,0.08)'}
+                  stroke="none"
+                  cornerRadius={12}
+                  opacity={0.7}
+                />
+                
+                {/* Fabric inner weave shadow */}
+                <Rect
+                  width={dynamicTagWidth - 8}
+                  height={design.tagHeight - 8}
+                  x={4}
+                  y={4}
                   fill="transparent"
-                  stroke="#ffffff"
-                  strokeWidth={1}
-                  cornerRadius={10}
-                  opacity={0.3}
+                  stroke={design.backgroundColor === '#FFFFFF' ? '#d5d5d5' : 'rgba(0,0,0,0.15)'}
+                  strokeWidth={0.5}
+                  cornerRadius={8}
+                />
+                
+                {/* Fabric edge seam highlight */}
+                <Rect
+                  width={dynamicTagWidth - 3}
+                  height={design.tagHeight - 3}
+                  x={1.5}
+                  y={1.5}
+                  fill="transparent"
+                  stroke={design.backgroundColor === '#FFFFFF' ? '#f8f8f8' : 'rgba(255,255,255,0.5)'}
+                  strokeWidth={1.2}
+                  cornerRadius={10.5}
+                />
+                
+                {/* Fabric edge shadow for depth */}
+                <Rect
+                  width={dynamicTagWidth - 1}
+                  height={design.tagHeight - 1}
+                  x={0.5}
+                  y={0.5}
+                  fill="transparent"
+                  stroke={design.backgroundColor === '#FFFFFF' ? '#a0a0a0' : 'rgba(255,255,255,0.2)'}
+                  strokeWidth={0.3}
+                  cornerRadius={11.5}
+                  opacity={0.6}
                 />
                 
                 {/* Icons and Text Layout */}
@@ -207,33 +306,6 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
               </Group>
             </Layer>
           </Stage>
-        </div>
-        
-        {/* Design Summary */}
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-          <h4 className="font-semibold text-gray-900 mb-3">Design Summary</h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-600">Product:</span>
-              <span className="font-medium">{currentProduct.name} - ${currentProduct.price}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Name:</span>
-              <span className="font-medium">{design.text}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Font:</span>
-              <span className="font-medium">{design.fontFamily}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Icons:</span>
-              <span className="font-medium">
-                {currentProduct.layout === 'dual-icons' 
-                  ? `${selectedIcon ? selectedIcon.name : 'None'} + ${selectedIcon2 ? selectedIcon2.name : 'None'}`
-                  : selectedIcon ? selectedIcon.name : 'None'
-                }
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -242,3 +314,4 @@ export const TagPreview = forwardRef<Konva.Stage, TagPreviewProps>(
 )
 
 TagPreview.displayName = 'TagPreview'
+

@@ -38,7 +38,7 @@ export default function Home() {
               
               <div className="mb-4">
                 <span className="badge bg-rainbow-gradient text-white px-4 py-2 rounded-pill fs-6 shadow-rainbow floating">
-                  ✨ Custom Embroidered Name Tags ✨
+                  Custom Embroidered Name Tags
                 </span>
               </div>
               
@@ -49,7 +49,7 @@ export default function Home() {
               <p className="lead text-muted mb-4 fs-4">
                 Waterproof embroidered tags for backpacks and lunch boxes. 
                 <br />
-                <strong>Professional quality, made with love by a Senior ECE Teacher!</strong> 💕
+                <strong>Professional quality, made with care by an experienced educator.</strong>
               </p>
 
               {/* Social Proof */}
@@ -68,7 +68,6 @@ export default function Home() {
                 </div>
                 <div className="col-md-4">
                   <div className="d-flex align-items-center justify-content-center gap-2 text-warning">
-                    <span className="fs-5">⭐</span>
                     <span className="fw-semibold">5-Star Reviews</span>
                   </div>
                 </div>
@@ -80,28 +79,28 @@ export default function Home() {
                   className="btn btn-pink btn-lg px-5 py-3 fw-bold pulse"
                   style={{transition: 'all 0.3s ease'}}
                 >
-                  🎨 Design Your Tag
+                  Design Your Tag
                 </button>
-                <a 
+                <a
                   href={`https://instagram.com/${APP_CONFIG.contact.instagram}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn btn-purple btn-lg px-5 py-3 fw-bold text-decoration-none"
                   style={{transition: 'all 0.3s ease'}}
                 >
-                  📱 View Gallery
+                  View Gallery
                 </a>
               </div>
 
               {/* Urgency/Trust Signals */}
               <div className="text-center">
                 <p className="text-success fw-semibold mb-2">
-                  🚚 Free pickup in Richmond • ⏰ Order by 2pm for same-day processing
+                  Free pickup in Richmond • Order by 2pm for same-day processing
                 </p>
                 <div className="d-flex justify-content-center align-items-center gap-4 text-muted small">
-                  <span>✅ 100% Satisfaction Guarantee</span>
-                  <span>✅ Made by ECE Teacher</span>
-                  <span>✅ Waterproof & Durable</span>
+                  <span>100% Satisfaction Guarantee</span>
+                  <span>Made by ECE Teacher</span>
+                  <span>Waterproof & Durable</span>
                 </div>
               </div>
             </div>
@@ -127,11 +126,11 @@ export default function Home() {
             <div className="card card-girly h-100 text-center p-4">
               <div className="card-body">
                 <div className="bg-pink-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style={{width: '80px', height: '80px'}}>
-                  <span className="fs-1">🎨</span>
+                  <span className="fs-4 fw-bold text-white">A</span>
                 </div>
                 <h3 className="card-title h4 fw-bold text-pink mb-3">Personalized</h3>
                 <p className="card-text text-muted">
-                  Your child's name with custom colors, fonts, and adorable icons to make each tag uniquely theirs! ✨
+                  Your child's name with custom colors, fonts, and adorable icons to make each tag uniquely theirs!
                 </p>
               </div>
             </div>
@@ -141,11 +140,11 @@ export default function Home() {
             <div className="card card-girly h-100 text-center p-4">
               <div className="card-body">
                 <div className="bg-purple-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style={{width: '80px', height: '80px'}}>
-                  <span className="fs-1">💧</span>
+                  <span className="fs-4 fw-bold text-white">W</span>
                 </div>
                 <h3 className="card-title h4 fw-bold text-purple mb-3">Waterproof</h3>
                 <p className="card-text text-muted">
-                  Built to last through daily adventures, playground fun, and all weather conditions! 🌧️
+                  Built to last through daily adventures, playground fun, and all weather conditions!
                 </p>
               </div>
             </div>
@@ -155,11 +154,11 @@ export default function Home() {
             <div className="card card-girly h-100 text-center p-4">
               <div className="card-body">
                 <div className="bg-red-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style={{width: '80px', height: '80px'}}>
-                  <span className="fs-1">📍</span>
+                  <span className="fs-4 fw-bold text-white">L</span>
                 </div>
                 <h3 className="card-title h4 fw-bold text-danger mb-3">Local Pickup</h3>
                 <p className="card-text text-muted">
-                  Convenient RMD pickup available - support your local community while getting amazing products! 🏠
+                  Convenient RMD pickup available - support your local community while getting amazing products!
                 </p>
               </div>
             </div>
@@ -172,7 +171,7 @@ export default function Home() {
         <div className="row">
           <div className="col-12 text-center mb-5">
             <h2 className="display-4 fw-bold mb-4 text-rainbow">
-              What Parents Say 💕
+              What Parents Say
             </h2>
             <p className="lead text-muted fs-5">
               Don't just take our word for it - hear from happy families!
@@ -185,7 +184,7 @@ export default function Home() {
             <div className="card card-girly h-100 p-4">
               <div className="card-body text-center">
                 <div className="mb-3">
-                  <span className="fs-1">⭐⭐⭐⭐⭐</span>
+                  <span className="text-warning fw-bold">★★★★★</span>
                 </div>
                 <p className="card-text fst-italic mb-4">
                   "My daughter's name tag is absolutely perfect! The quality is amazing and it's survived months of daily use. Ms. Joy was so patient helping me design it!"
@@ -207,7 +206,7 @@ export default function Home() {
             <div className="card card-girly h-100 p-4">
               <div className="card-body text-center">
                 <div className="mb-3">
-                  <span className="fs-1">⭐⭐⭐⭐⭐</span>
+                  <span className="text-warning fw-bold">★★★★★</span>
                 </div>
                 <p className="card-text fst-italic mb-4">
                   "Finally found name tags that actually stay on! The waterproof feature is incredible - my son's tag looks brand new after 6 months."
@@ -229,7 +228,7 @@ export default function Home() {
             <div className="card card-girly h-100 p-4">
               <div className="card-body text-center">
                 <div className="mb-3">
-                  <span className="fs-1">⭐⭐⭐⭐⭐</span>
+                  <span className="text-warning fw-bold">★★★★★</span>
                 </div>
                 <p className="card-text fst-italic mb-4">
                   "As a teacher, I can tell these are made with love and attention to detail. My students love their personalized tags!"
@@ -274,15 +273,15 @@ export default function Home() {
             <div className="col-md-4">
               <div className="card card-girly h-100 text-center position-relative shadow-rainbow">
                 <div className="position-absolute top-0 start-50 translate-middle">
-                  <span className="badge bg-success rounded-pill fs-6 px-3 py-2 pulse">⭐ Most Popular</span>
+                  <span className="badge bg-success rounded-pill fs-6 px-3 py-2 pulse">Most Popular</span>
                 </div>
                 <div className="card-body p-4 pt-5">
                   <h3 className="card-title h3 fw-bold text-pink mb-3">Standard</h3>
                   <div className="display-4 fw-bold text-girly mb-4">$10</div>
                   <p className="text-muted fs-5 fw-medium mb-2">2.5cm width, one icon on each side</p>
-                  <p className="text-success small mb-3">✅ Perfect for most kids</p>
+                  <p className="text-success small mb-3">Perfect for most kids</p>
                   <button className="btn btn-pink btn-lg w-100">
-                    Choose This! 🌟
+                    Choose This!
                   </button>
                 </div>
               </div>
@@ -291,14 +290,14 @@ export default function Home() {
             <div className="col-md-4">
               <div className="card card-girly h-100 text-center position-relative">
                 <div className="position-absolute top-0 start-50 translate-middle">
-                  <span className="badge bg-warning rounded-pill fs-6 px-3 py-2">🔥 Great Value</span>
+                  <span className="badge bg-warning rounded-pill fs-6 px-3 py-2">Great Value</span>
                 </div>
                 <div className="card-body p-4 pt-5">
                   <h3 className="card-title h3 fw-bold text-purple mb-3">Large</h3>
                   <div className="display-4 fw-bold text-girly mb-4">$12</div>
                   <p className="text-muted fs-5 fw-medium mb-2">3cm with single icon</p>
                   <button className="btn btn-purple btn-lg w-100">
-                    Choose This! 🔥
+                    Choose This!
                   </button>
                 </div>
               </div>
@@ -307,14 +306,14 @@ export default function Home() {
             <div className="col-md-4">
               <div className="card card-girly h-100 text-center position-relative">
                 <div className="position-absolute top-0 start-50 translate-middle">
-                  <span className="badge bg-info rounded-pill fs-6 px-3 py-2">💜 Minimalist</span>
+                  <span className="badge bg-info rounded-pill fs-6 px-3 py-2">Minimalist</span>
                 </div>
                 <div className="card-body p-4 pt-5">
                   <h3 className="card-title h3 fw-bold text-danger mb-3">Small</h3>
                   <div className="display-4 fw-bold text-girly mb-4">$8</div>
                   <p className="text-muted fs-5 fw-medium mb-2">Single colour text, no icons</p>
                   <button className="btn btn-red btn-lg w-100">
-                    Choose This! 💜
+                    Choose This!
                   </button>
                 </div>
               </div>
@@ -463,7 +462,7 @@ export default function Home() {
                   >
                     <span className="text-pink">@msjoy_labeldesign</span>
                   </a>
-                  <p className="text-muted mt-2">Follow for inspiration & updates! ✨</p>
+                  <p className="text-muted mt-2">Follow for inspiration & updates</p>
                 </div>
               </div>
             </div>
@@ -497,7 +496,7 @@ export default function Home() {
                   >
                     <span className="text-purple">Follow & Message</span>
                   </a>
-                  <p className="text-muted mt-2">Quick questions & custom orders! 💬</p>
+                  <p className="text-muted mt-2">Quick questions & custom orders</p>
                 </div>
               </div>
             </div>
